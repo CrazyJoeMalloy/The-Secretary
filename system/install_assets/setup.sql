@@ -113,9 +113,9 @@ CREATE TABLE IF NOT EXISTS users (
   id int(10) unsigned NOT NULL auto_increment,
   username text NOT NULL,
   password text NOT NULL,
-  display_name text NOT NULL,
+  display_name text NULL,
   email text NOT NULL,
-  level_id int(11) NOT NULL,
+  level_id int(11) NULL,
   PRIMARY KEY  (id)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 

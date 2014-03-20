@@ -6,8 +6,13 @@
 	
 	ob_start();
 	
+	$server_port = "";
+	if($_SERVER["SERVER_PORT"] != 80){
+		$server_port = ":" . $_SERVER["SERVER_PORT"];
+	}
+	
 	define( 'BASE_PATH', dirname( $_SERVER["SCRIPT_FILENAME"] ) . "/" );
-	define( 'BASE_URL', "http://" . $_SERVER['SERVER_NAME'] . dirname( $_SERVER['REQUEST_URI'] ) . "/" );
+	define( 'BASE_URL', "http://" . $_SERVER['SERVER_NAME'] . $server_port . dirname( $_SERVER['REQUEST_URI'] ) . "/" );
 	define( "SYSTEM" , BASE_PATH  . "system/" );
 	define( "SYSTEM_URL", BASE_URL  . "system/" );
 	
@@ -179,7 +184,7 @@
 						# Sometimes an install error means the installer has to be run again
 						# resulting in duplicates.
 						if ( $manager->clerk->query_countRows( "users", "WHERE username= '$username' AND password= '$password'" ) == 0 )
-							$manager->clerk->query_insert( "users", "username, password, email", "'$username', '$password', '$email'" );
+							$manager->clerk->query_insert( "users", "username, password, email, display_name", "'$username', '$password', '$email', 'Administrator'" );
 						
 						# Update settings
 						$manager->clerk->updateSettings(
